@@ -14,9 +14,7 @@ function MovieBanner ( {id, url, title } ) {
             <Movie>
                 <img src={url} alt="movie"></img>
             </Movie>      
-        </Link>
-        
-
+        </Link>       
     )
 }
 
@@ -55,7 +53,8 @@ export default function Home() {
                         ))
                     }                
                 </Pic>                        
-            </Main>        
+            </Main>
+        
         </Body>        
     )
     

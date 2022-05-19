@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
 
-export default function Footer ( {url, title, urlSession, titleSession, weekday, date } ) {
+function Footers ( {url, title, urlSession, titleSession, weekday, date } ) {
     return (
         <>
         <Foot>
