@@ -85,8 +85,8 @@ export default function Session() {
             }
             </SeatsRow>
             <Seat isSelected={true}></Seat>
-            <Seat isAvailable={true}></Seat>
             <Seat isAvailable={false}></Seat>
+            <Seat isAvailable={true}></Seat>
 
         </main>
         <Footer
