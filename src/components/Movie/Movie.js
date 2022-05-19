@@ -6,11 +6,14 @@ import "../../assets/reset.css"
 import "./style.css"
 
 
-function Showtime ( {showtime, index} ) {
+function Showtime ( {showtime, id, index} ) {
     return (
-        <div className="button">
-            {showtime}
-        </div>
+        <Link to={`/sessao/${id}`}>
+            <div className="button">
+                {showtime}
+            </div>
+        </Link>
+        
 
     )
 }
@@ -29,6 +32,7 @@ function MovieSection ( {date, id, showtimes, weekday} ) {
                         <Showtime
                         key={index} 
                         showtime={showtime.name}
+                        id={showtime.id}
                         index={index}
                         />                                           
                     ))
@@ -54,7 +58,7 @@ export default function Movie () {
             console.log(response.data.days)
             
         });
-    }, [])
+    }, []);
 
 
     return (
