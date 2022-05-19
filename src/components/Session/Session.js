@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
+import Footer from "../Footer/Footer";
+
 import "../../assets/reset.css"
 import "./style.css"
 
@@ -24,6 +26,10 @@ export default function Session() {
     return (
         <>
         eu sou os assentos
+        <Footer 
+        
+        />
         </>
+
     )
 }

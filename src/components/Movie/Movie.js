@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import Footer from "../Footer/Footer";
 
 import "../../assets/reset.css"
 import "./style.css"
@@ -18,8 +19,9 @@ function Showtime ( {showtime, id, index} ) {
     )
 }
 
-function MovieSection ( {date, id, showtimes, weekday} ) {
+function MovieSection ( {date, id, showtimes, weekday, url} ) {
     console.log(showtimes)
+    console.log(url)
 
     return (
         <section>
@@ -46,16 +48,21 @@ function MovieSection ( {date, id, showtimes, weekday} ) {
 
 
 
-export default function Movie () {
+
+export default function Movie ( { url }) {
     const [sections, setSections] = useState([]);
+    const [info, setInfo] = useState([])
     const { idfilme } = useParams();
+    console.log(info)
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idfilme}/showtimes`);
 
         promise.then((response) => {
             setSections(response.data.days);
+            setInfo(response.data)
             console.log(response.data.days)
+            console.log(response.data)
             
         });
     }, []);
@@ -77,13 +84,20 @@ export default function Movie () {
                     date={section.date}
                     id={section.id}
                     showtimes={section.showtimes}
-                    weekday={section.weekday} 
+                    weekday={section.weekday}
+                    url= {url} 
                     /> 
                 ))
             }
             
 
         </main>
+        <Footer 
+        url={info.posterURL}
+        title={info.title}
+
+        />
+        
         
         
         
