@@ -1,15 +1,22 @@
 
 import styled from 'styled-components';
 
-export default function Footer ( {url, title } ) {
+export default function Footer ( {url, title, urlSession, titleSession, weekday, date } ) {
     return (
         <>
         <Foot>
             <div>
-                <img src={url} alt="movie"></img>
+                {
+                    weekday ? <img src={url} alt="movie"></img> : <img src={urlSession} alt="movie"></img>
+                }
+                
             </div>
             <div>
                 <p>{title}</p>
+                {
+                    weekday ? <p> {weekday} - {date} </p> : null
+                }
+
             </div>            
             
         </Foot>

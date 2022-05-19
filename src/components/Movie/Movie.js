@@ -13,15 +13,12 @@ function Showtime ( {showtime, id, index} ) {
             <div className="button">
                 {showtime}
             </div>
-        </Link>
-        
-
+        </Link>       
     )
 }
 
 function MovieSection ( {date, id, showtimes, weekday, url} ) {
     console.log(showtimes)
-    console.log(url)
 
     return (
         <section>
@@ -43,10 +40,7 @@ function MovieSection ( {date, id, showtimes, weekday, url} ) {
             </div>
         </section>
     )
-
 }
-
-
 
 
 export default function Movie ( { url }) {
@@ -70,37 +64,32 @@ export default function Movie ( { url }) {
 
     return (
         <>
-        <header>
-            <h1>CINEFLEX</h1>
-        </header>
-        <main>
-            <div className="title center">
-                <h2>Selecione o horário</h2> 
-            </div>
-            {
-                sections.map((section, index) => (
-                    <MovieSection
-                    key={index}
-                    date={section.date}
-                    id={section.id}
-                    showtimes={section.showtimes}
-                    weekday={section.weekday}
-                    url= {url} 
-                    /> 
-                ))
-            }
-            
+            <header>
+                <h1>CINEFLEX</h1>
+            </header>
+            <main>
+                <div className="title center">
+                    <h2>Selecione o horário</h2> 
+                </div>
+                {
+                    sections.map((section, index) => (
+                        <MovieSection
+                        key={index}
+                        date={section.date}
+                        id={section.id}
+                        showtimes={section.showtimes}
+                        weekday={section.weekday}
+                        url= {url} 
+                        /> 
+                    ))
+                }
+                
 
-        </main>
-        <Footer 
-        url={info.posterURL}
-        title={info.title}
-
-        />
-        
-        
-        
-        
+            </main>
+            <Footer 
+            url={info.posterURL}
+            title={info.title}
+            />       
         </>
         
     )

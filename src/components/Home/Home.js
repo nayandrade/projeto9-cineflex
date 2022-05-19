@@ -9,7 +9,6 @@ import "./style.css"
 
 
 function MovieBanner ( {id, url, title } ) {
-    console.log(id)
     return (
         <Link to={`/filme/${id}` }>
             <Movie>
@@ -37,28 +36,26 @@ export default function Home() {
 
     return (
         <Body>
-        <Header>
-            <h1>CINEFLEX</h1>
-        </Header>
-        <Main>
-            <Title>
-                <h2>Selecione o filme</h2> 
-            </Title>
-            <Pic>
-                {
-                    movies.map((movie, index) => (
-                        <MovieBanner
-                        key={index}
-                        id={movie.id} 
-                        url={movie.posterURL}
-                        title={movie.title}
-                        />                        
-                    ))
-                }                
-            </Pic>
-                      
-        </Main>
-        
+            <Header>
+                <h1>CINEFLEX</h1>
+            </Header>
+            <Main>
+                <Title>
+                    <h2>Selecione o filme</h2> 
+                </Title>
+                <Pic>
+                    {
+                        movies.map((movie, index) => (
+                            <MovieBanner
+                            key={index}
+                            id={movie.id} 
+                            url={movie.posterURL}
+                            title={movie.title}
+                            />                        
+                        ))
+                    }                
+                </Pic>                        
+            </Main>        
         </Body>        
     )
     

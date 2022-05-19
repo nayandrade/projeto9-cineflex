@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home/Home";
-import Movie from "./Movie/Movie.js";
+import Movie from "./Movie/Movie.js";   
 import Session from "./Session/Session";
 
 export default function App() {
