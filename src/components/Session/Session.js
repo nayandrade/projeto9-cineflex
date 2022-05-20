@@ -20,7 +20,8 @@ function Footer ( {url, title, weekday, date } ) {
     )
 }
 
-function Seats ( {name, isAvailable, id, selected, setSelected, chosen, setChosen} ) {
+function Seats ( {name, isAvailable, id, selected, setSelected} ) {
+    const [chosen, setChosen] = useState('')
 
     function Chose() {
         if(isAvailable && !chosen) {
@@ -28,9 +29,9 @@ function Seats ( {name, isAvailable, id, selected, setSelected, chosen, setChose
             setSelected([...selected, id])
             console.log(selected)
             console.log(id)
-        } else {
+        } else if (chosen){
             setChosen(!chosen)
-        }
+        } 
     }    
 
     return (
@@ -48,7 +49,7 @@ export default function Session() {
     const [day, setDay] = useState ('');
 
     const [selected, setSelected] = useState([]);
-    const [chosen, setChosen] = useState('')
+    
 
     const [name, setName] = useState('');
     const [cpf, setCpf] = useState('');
@@ -92,9 +93,6 @@ export default function Session() {
                     key={index}
                     selected={selected}
                     setSelected={setSelected}
-                    chosen={chosen}
-                    setChosen={setChosen}
-
                     />   
                                         
                 )) 
@@ -111,7 +109,7 @@ export default function Session() {
                 <input type="text" id="nome" value={name} placeholder="Digite seu nome..." required onChange={(e) => setName(e.target.value)}/>
                 <label htmlFor="number">CPF do comprador:</label>
                 <input type="number" id="number" value={cpf} placeholder="Digite seu CPF..." pattern="(/^(\d{3}\.){2}\d{3}\-\d{2}$/)" required onChange={(e) => setCpf(e.target.value)}/>
-                <div><Link to={`/sucesso`}><button type="submit">Reservar Assento(s)</button></Link></div>
+                <div><button type="submit"><Link to={`/sucesso`}>Reservar Assento(s)</Link></button></div>
             </Form>
             
         </Main>
@@ -174,7 +172,7 @@ export default function Session() {
 `
 
 const Title = styled.div`
-    height: 10vh;
+    height: 90px;
     text-align: center;
     display: flex;
     align-items: center;
@@ -253,14 +251,15 @@ const Form = styled.form`
         font-size: 18px;
         border: none;
         border-radius: 3px;
-
-    
+        display: flex;
+        justify-content: center;
+        align-items: center;    
     }
 
-    
-
-
-
+    button a:-webkit-any-link {
+        color: inherit;
+        text-decoration: none;
+    }
 `
 
 const SeatsRow = styled.div`

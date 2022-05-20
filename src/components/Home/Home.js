@@ -97,7 +97,7 @@ const Title = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100px;
+    height: 90px;
     text-align: center;
 `
 
