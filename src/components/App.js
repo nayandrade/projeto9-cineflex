@@ -5,6 +5,11 @@ import Movie from "./Movie/Movie.js";
 import Session from "./Session/Session";
 
 export default function App() {
+    
+
+
+
+
     return (
         <BrowserRouter>
             <Routes>

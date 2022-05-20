@@ -8,9 +8,10 @@ import "./style.css"
 
 
 
-function Seats( {id, name, isAvailable, setSelected, selected} ) {
+function Seats( {name, isAvailable, setSelected, selected} ) {
+
     return (
-        <div onClick={isAvailable ? () => setSelected(true) : setSelected(false)} >
+        <div onClick={isAvailable ? () => setSelected(true) : null} >
             <Seat isAvailable={isAvailable} isSelected={selected}>
                 {name}
             </Seat>
@@ -31,7 +32,6 @@ function Footer ( {url, title, weekday, date } ) {
             </div>                
         </Foot>
         </>
-
     )
 }
 
@@ -43,8 +43,6 @@ export default function Session() {
     const [selected, setSelected] = useState(false)
     const [day, setDay] = useState ('')
     const { idsessao } = useParams();
-    
-    
 
     useEffect(() =>{
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idsessao}/seats`)
@@ -57,7 +55,7 @@ export default function Session() {
             console.log(response.data.seats)
 
         });
-    }, []);
+    }, []);   
 
     return (
         <>
@@ -84,10 +82,12 @@ export default function Session() {
                 ))
             }
             </SeatsRow>
-            <Seat isSelected={true}></Seat>
-            <Seat isAvailable={false}></Seat>
-            <Seat isAvailable={true}></Seat>
-
+            <SeatLabel>
+                <div><Seat isSelected={true}></Seat><span>Selecionado</span></div>
+                <div><Seat isAvailable={true}></Seat><span>Disponível</span></div>
+                <div><Seat isAvailable={false}></Seat><span>Indisponível</span></div>   
+            </SeatLabel>
+            
         </main>
         <Footer
         url={movie.posterURL}
@@ -96,7 +96,6 @@ export default function Session() {
         date={info.name}          
         />
         </>
-
     )
 }
 
@@ -108,6 +107,21 @@ const SeatsRow = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+`
+const SeatLabel =styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 30px;
+
+    div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 400;
+    }
 `
 
 const Seat = styled.div`
@@ -123,7 +137,8 @@ const Seat = styled.div`
     color: #333;
     font-weight: 400px;
     text-align: center;
-    background-color: ${props => props.isAvailable ? '#FBE192' : props.isSelected ? '#8DD7CF' :'#C3CFD9'};
+    background-color: ${props => props.isSelected ? '#8DD7CF' : props.isAvailable ? '#C3CFD9' :'#FBE192'};
+
 `
 
 const Foot = styled.div`
