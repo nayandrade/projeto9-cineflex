@@ -3,10 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from 'styled-components';
 
-export default function Sucess( {movie, day, info, seats, setSeats, name, setName, cpf, setCpf} ) {
+export default function Sucess( {movie, day, info, selected, seats, setSeats, name, setName, cpf, setCpf} ) {
     console.log(day)
     console.log(movie)
     console.log(info)
+    console.log(selected)
     return (
         <>
         <Header>
@@ -25,7 +26,13 @@ export default function Sucess( {movie, day, info, seats, setSeats, name, setNam
             </Section>
             <Section>
                 <h3>Ingressos</h3>
-                <span>map dos assentos</span>
+                {
+                    selected.map((e) => (
+                        <span>Assento {e}</span>
+                    ))
+                    
+                }
+                
                 
             </Section>
             <Section>

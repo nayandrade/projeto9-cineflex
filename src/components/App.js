@@ -42,7 +42,8 @@ export default function App() {
                 <Route path="/sucesso" element={<Sucess
                 movie={movie}
                 day={day}
-                info={info} 
+                info={info}
+                selected={selected} 
                 seats={seats} 
                 setSeats={setSeats}
                 name={name}

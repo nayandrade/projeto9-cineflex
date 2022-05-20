@@ -22,14 +22,16 @@ function Footer ( {url, title, weekday, date } ) {
 
 function Seats ( {name, isAvailable, id, selected, setSelected} ) {
     const [chosen, setChosen] = useState('')
+    
 
     function Chose() {
         if(isAvailable && !chosen) {
             setChosen(!chosen)
-            setSelected([...selected, id])
+            setSelected([...selected, name])
             console.log(selected)
-            console.log(id)
-        } else if (chosen){
+            console.log(name)
+        } else if (chosen){         
+            setSelected(selected.filter((e) => e !== name ))
             setChosen(!chosen)
         } 
     }    
@@ -44,14 +46,8 @@ function Seats ( {name, isAvailable, id, selected, setSelected} ) {
 
 export default function Session( {movie, setMovie, day, setDay, info, setInfo, selected, setSelected, seats, setSeats, name, setName, cpf, setCpf,} ) {
     
-    
-      
-
-
-    
     const { idsessao } = useParams();
       
-
     useEffect(() =>{
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idsessao}/seats`)
         promise.then((response) =>{
