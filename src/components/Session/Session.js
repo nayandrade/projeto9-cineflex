@@ -6,19 +6,6 @@ import styled from 'styled-components';
 import "../../assets/reset.css"
 import "./style.css"
 
-
-
-function Seats( {name, isAvailable, setSelected, selected} ) {
-
-    return (
-        <div onClick={isAvailable ? () => setSelected(true) : null} >
-            <Seat isAvailable={isAvailable} isSelected={selected}>
-                {name}
-            </Seat>
-        </div>        
-    );
-}
-
 function Footer ( {url, title, weekday, date } ) {
     return (
         <>
@@ -40,9 +27,16 @@ export default function Session() {
     const [seats, setSeats] = useState([]);
     const [info, setInfo] = useState([]);
     const [movie, setMovie] = useState ({})
-    const [selected, setSelected] = useState(false)
-    const [day, setDay] = useState ('')
+    const [day, setDay] = useState ('');
+
+    const [selected, setSelected] = useState([]);
+    const [chosen, setChosen] = useState('')
+
+    const [name, setName] = useState('');
+    const [cpf, setCpf] = useState('');
+    
     const { idsessao } = useParams();
+      
 
     useEffect(() =>{
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idsessao}/seats`)
@@ -55,7 +49,16 @@ export default function Session() {
             console.log(response.data.seats)
 
         });
-    }, []);   
+    }, []);
+    
+    function Seats() {      
+        function sendSeats(event) {
+            event.preventDefault()
+            
+            const requisicao = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many")
+        }
+    }
+    
 
     return (
         <>
@@ -64,40 +67,135 @@ export default function Session() {
                 <h1>CINEFLEX</h1>
             </header>
         </Link>
-        <main>
-            <div className="title center">
-                <h2>Selecione o horário</h2> 
-            </div>
+        <Main>
+            <Title>
+                <h2>Selecione os assentos</h2> 
+            </Title>
             <SeatsRow>
             {
                 seats.map((seat, index) => (
-                    <Seats
-                    key={index}
-                    id={seat.id}
-                    name={seat.name}
-                    isAvailable={seat.isAvailable} 
-                    setSelected={setSelected}
-                    selected={selected}                   
-                    /> 
+                    <Seat isAvailable={seat.isAvailable} setSelect={setSelected} chosen={chosen} key={index} onClick={() => seat.isAvailable ? setChosen([...selected, chosen]) & console.log(selected) : null}>
+                        {seat.name}
+                    </Seat>                    
                 ))
             }
             </SeatsRow>
             <SeatLabel>
-                <div><Seat isSelected={true}></Seat><span>Selecionado</span></div>
+                <div><Seat selected={true}></Seat><span>Selecionado</span></div>
                 <div><Seat isAvailable={true}></Seat><span>Disponível</span></div>
                 <div><Seat isAvailable={false}></Seat><span>Indisponível</span></div>   
             </SeatLabel>
+            <Form>
+                <label htmlFor="nome">Nome do comprador:</label>
+                <input type="text" id="nome" value={name} placeholder="Digite seu nome..." required onChange={(e) => setName(e.target.value)}/>
+                <label htmlFor="number">CPF do comprador:</label>
+                <input type="number" id="number" value={cpf} placeholder="Digite seu CPF..." pattern="(/^(\d{3}\.){2}\d{3}\-\d{2}$/)" required onChange={(e) => setCpf(e.target.value)}/>
+                <div><Link to={`/sucesso`}><button type="submit">Reservar Assento(s)</button></Link></div>
+            </Form>
             
-        </main>
-        <Footer
-        url={movie.posterURL}
-        title={movie.title}
-        weekday={day.weekday}
-        date={info.name}          
-        />
+        </Main>
+        {
+            info ? <Footer
+            url={movie.posterURL}
+            title={movie.title}
+            weekday={day.weekday}
+            date={info.name}          
+            /> : null
+
+        }
+        
         </>
     )
 }
+
+const Title = styled.div`
+    height: 10vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const Main = styled.main`
+    width: 100%;
+    height: 79vh;
+    margin-top: 8vh;
+    margin-bottom: 13vh;
+
+    h2 {
+        font-size: 24px;
+    }
+
+`
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    padding: 30px 24px;
+    
+    
+    label {
+        font-size: 18px;
+        padding: 1px;
+    }
+    input {
+        height: 51px;
+        width: 100%;
+        margin-bottom: 7px;
+        border-radius: 3px;
+        border: 1px solid #D4D4D4;
+            
+    }
+
+    input:focus {
+        border: none
+    }
+
+    input::-webkit-input-placeholder { /* Edge */
+        color: #AFAFAF;
+        font-size: 18px;
+        font-style: italic;
+        text-indent: 20px; 
+    }
+
+    input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: #AFAFAF;
+        font-size: 18px;
+        font-style: italic;
+        text-indent: 20px;
+    }
+
+    input::placeholder {
+        color: #AFAFAF;
+        font-size: 18px;
+        font-style: italic;
+        text-indent: 20px;
+    }
+
+    div {
+        display: flex;
+        justify-content: center;
+    }
+
+    button {
+        margin-top: 40px;
+        width: 225px;
+        height: 42px;
+        text-align: center;
+        background-color: #E8833A;
+        color: #FFFFFF;
+        font-size: 18px;
+        border: none;
+        border-radius: 3px;
+
+    
+    }
+
+    
+
+
+
+`
 
 const SeatsRow = styled.div`
     width: 100%;
@@ -137,13 +235,13 @@ const Seat = styled.div`
     color: #333;
     font-weight: 400px;
     text-align: center;
-    background-color: ${props => props.isSelected ? '#8DD7CF' : props.isAvailable ? '#C3CFD9' :'#FBE192'};
+    background-color: ${props => props.selected ? '#8DD7CF' : props.isAvailable ? '#C3CFD9' :'#FBE192'};
 
 `
 
-const Foot = styled.div`
+const Foot = styled.footer`
     width: 100%;
-    height: 117px;
+    height: 13vh;
     display: flex;
     align-items: center;
     position: fixed;
