@@ -3,8 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from 'styled-components';
 
-import "../../assets/reset.css"
-import "./style.css"
 
 function Footer ( {url, title, weekday, date } ) {
     return (
@@ -22,10 +20,28 @@ function Footer ( {url, title, weekday, date } ) {
     )
 }
 
+function Seats ( {name, isAvailable, id, selected, setSelected, chosen, setChosen} ) {
+
+    function Chose() {
+        if(isAvailable) {
+            setChosen = !chosen
+            setSelected = [...selected, id]
+            console.log(selected)
+            console.log(id)
+        }
+    }    
+
+    return (
+        <Seat isAvailable={isAvailable} chosen={chosen} onClick={Chose}>
+            {name}
+        </Seat>
+    )
+}
+
 
 export default function Session() {
     const [seats, setSeats] = useState([]);
-    const [info, setInfo] = useState([]);
+    const [info, setInfo] = useState(null);
     const [movie, setMovie] = useState ({})
     const [day, setDay] = useState ('');
 
@@ -50,15 +66,6 @@ export default function Session() {
 
         });
     }, []);
-    
-    function Seats() {      
-        function sendSeats(event) {
-            event.preventDefault()
-            
-            const requisicao = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many")
-        }
-    }
-    
 
     return (
         <>
@@ -73,15 +80,25 @@ export default function Session() {
             </Title>
             <SeatsRow>
             {
-                seats.map((seat, index) => (
-                    <Seat isAvailable={seat.isAvailable} setSelect={setSelected} chosen={chosen} key={index} onClick={() => seat.isAvailable ? setChosen([...selected, chosen]) & console.log(selected) : null}>
-                        {seat.name}
-                    </Seat>                    
-                ))
+                info?.seats.map((seat, index) => (
+                    <Seats 
+                    isAvailable={seat.isAvailable}
+                    name={seat.name}
+                    id={seat.id}
+                    key={index}
+                    selected={selected}
+                    setSelected={setSelected}
+                    chosen={chosen}
+                    setChosen={setChosen}
+
+                    />   
+                                        
+                )) 
             }
+
             </SeatsRow>
             <SeatLabel>
-                <div><Seat selected={true}></Seat><span>Selecionado</span></div>
+                <div><Seat chosen={true}></Seat><span>Selecionado</span></div>
                 <div><Seat isAvailable={true}></Seat><span>Disponível</span></div>
                 <div><Seat isAvailable={false}></Seat><span>Indisponível</span></div>   
             </SeatLabel>
@@ -95,18 +112,28 @@ export default function Session() {
             
         </Main>
         {
-            info ? <Footer
-            url={movie.posterURL}
-            title={movie.title}
-            weekday={day.weekday}
-            date={info.name}          
-            /> : null
+            <Footer
+            url={info?.movie.posterURL}
+            title={info?.movie.title}
+            weekday={info?.day.weekday}
+            date={info?.name}          
+            />
 
         }
         
         </>
     )
 }
+
+    
+    // function Seats() {      
+    //     function sendSeats(event) {
+    //         event.preventDefault()
+            
+    //         const requisicao = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many")
+    //     }
+    // }
+    
 
 const Title = styled.div`
     height: 10vh;
@@ -235,7 +262,7 @@ const Seat = styled.div`
     color: #333;
     font-weight: 400px;
     text-align: center;
-    background-color: ${props => props.selected ? '#8DD7CF' : props.isAvailable ? '#C3CFD9' :'#FBE192'};
+    background-color: ${props => props.chosen ? '#8DD7CF' : props.isAvailable ? '#C3CFD9' :'#FBE192'};
 
 `
 

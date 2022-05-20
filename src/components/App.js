@@ -5,6 +5,8 @@ import Movie from "./Movie/Movie.js";
 import Session from "./Session/Session";
 import Sucess from "./Sucess/Sucess";
 
+import "../assets/reset.css"
+
 export default function App() {
     
 
