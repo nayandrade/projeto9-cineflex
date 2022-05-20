@@ -11,9 +11,12 @@ import "../assets/reset.css"
 export default function App() {
     const [seats, setSeats] = React.useState([]);
     const [name, setName] = React.useState('');
-    const [cpf, setCpf] = React.useState('');   
-
-
+    const [cpf, setCpf] = React.useState('');
+    const [info, setInfo] = React.useState(null);
+    const [selected, setSelected] = React.useState([]);
+    
+    const [movie, setMovie] = React.useState ({})
+    const [day, setDay] = React.useState ('');
 
 
     return (
@@ -22,13 +25,24 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/filme/:idfilme" element={<Movie />} />
                 <Route path="/sessao/:idsessao" element={<Session 
+                movie={movie} 
+                setMovie={setMovie}
+                day={day}
+                setDay={setDay}
+                info={info}
+                setInfo={setInfo}
+                selected={selected}
+                setSelected={setSelected}
                 seats={seats} 
                 setSeats={setSeats}
                 name={name}
                 setName={setName}
                 cpf={cpf}
                 setCpf={setCpf}/> } />
-                <Route path="/sucesso" element={<Sucess 
+                <Route path="/sucesso" element={<Sucess
+                movie={movie}
+                day={day}
+                info={info} 
                 seats={seats} 
                 setSeats={setSeats}
                 name={name}

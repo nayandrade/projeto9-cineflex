@@ -42,14 +42,10 @@ function Seats ( {name, isAvailable, id, selected, setSelected} ) {
 }
 
 
-export default function Session( {seats, setSeats, name, setName, cpf, setCpf} ) {
+export default function Session( {movie, setMovie, day, setDay, info, setInfo, selected, setSelected, seats, setSeats, name, setName, cpf, setCpf,} ) {
     
-    const [info, setInfo] = useState(null);
-    const [movie, setMovie] = useState ({})
-    const [day, setDay] = useState ('');
-
-    const [selected, setSelected] = useState([]);
     
+      
 
 
     

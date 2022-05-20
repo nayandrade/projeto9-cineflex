@@ -3,7 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from 'styled-components';
 
-export default function Sucess( {seats, setSeats, name, setName, cpf, setCpf} ) {
+export default function Sucess( {movie, day, info, seats, setSeats, name, setName, cpf, setCpf} ) {
+    console.log(day)
+    console.log(movie)
+    console.log(info)
     return (
         <>
         <Header>
@@ -17,8 +20,8 @@ export default function Sucess( {seats, setSeats, name, setName, cpf, setCpf} ) 
             </Title>
             <Section>
                 <h3>Filme e sessão</h3>
-                <span>Enola Holmes</span>
-                <span>24/06/2021 15:00</span>
+                <span>{movie.title}</span>
+                <span>{day.date} {info?.name}</span>
             </Section>
             <Section>
                 <h3>Ingressos</h3>
