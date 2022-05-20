@@ -42,8 +42,8 @@ function Seats ( {name, isAvailable, id, selected, setSelected} ) {
 }
 
 
-export default function Session() {
-    const [seats, setSeats] = useState([]);
+export default function Session( {seats, setSeats, name, setName, cpf, setCpf} ) {
+    
     const [info, setInfo] = useState(null);
     const [movie, setMovie] = useState ({})
     const [day, setDay] = useState ('');
@@ -51,8 +51,7 @@ export default function Session() {
     const [selected, setSelected] = useState([]);
     
 
-    const [name, setName] = useState('');
-    const [cpf, setCpf] = useState('');
+
     
     const { idsessao } = useParams();
       
@@ -300,6 +299,7 @@ const Seat = styled.div`
     color: #333;
     font-weight: 400px;
     text-align: center;
+    border: 1px solid ${props => props.chosen ? '#45BDB0' : props.isAvailable ? '#808F9D' :'#F7C52B'};
     background-color: ${props => props.chosen ? '#8DD7CF' : props.isAvailable ? '#C3CFD9' :'#FBE192'};
 
 `

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from 'styled-components';
 
-export default function Sucess() {
+export default function Sucess( {seats, setSeats, name, setName, cpf, setCpf} ) {
     return (
         <>
         <Header>
@@ -27,8 +27,8 @@ export default function Sucess() {
             </Section>
             <Section>
                 <h3>Comprador</h3>
-                <span>nome</span>
-                <span>cpf</span>                
+                <span>{name}</span>
+                <span>{cpf}</span>                
             </Section>
             <div><Button><Link to={`/`}>Voltar pra home</Link></Button>  </div>        
         </Main>  
@@ -87,7 +87,7 @@ const Main = styled.main`
         display: flex;
         justify-content: center;
     }
-    
+
     button a:-webkit-any-link {
         color: inherit;
         text-decoration: none;
