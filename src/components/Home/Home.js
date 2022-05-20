@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from 'styled-components';
 
-import "../../assets/reset.css"
-import "./style.css"
-
-
 
 function MovieBanner ( {id, url, title } ) {
     return (
@@ -69,7 +65,7 @@ const Body = styled.div`
 
 const Header = styled.header`
     width: 100%;
-    height: 8vh;
+    height: 67px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,7 +83,7 @@ const Header = styled.header`
 const Main = styled.main`
     width: 100%;
     height: 92vh;
-    margin-top: 8vh;
+    margin-top: 67px;
 
     h2 {
         font-size: 24px;

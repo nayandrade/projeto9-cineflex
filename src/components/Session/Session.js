@@ -23,11 +23,13 @@ function Footer ( {url, title, weekday, date } ) {
 function Seats ( {name, isAvailable, id, selected, setSelected, chosen, setChosen} ) {
 
     function Chose() {
-        if(isAvailable) {
-            setChosen = !chosen
-            setSelected = [...selected, id]
+        if(isAvailable && !chosen) {
+            setChosen(!chosen)
+            setSelected([...selected, id])
             console.log(selected)
             console.log(id)
+        } else {
+            setChosen(!chosen)
         }
     }    
 
@@ -69,11 +71,13 @@ export default function Session() {
 
     return (
         <>
-        <Link to={`/`}>
-            <header>
+        
+        <Header>
+            <Link to={`/`}>
                 <h1>CINEFLEX</h1>
-            </header>
-        </Link>
+            </Link>
+        </Header>
+        
         <Main>
             <Title>
                 <h2>Selecione os assentos</h2> 
@@ -126,7 +130,18 @@ export default function Session() {
 }
 
     
-    // function Seats() {      
+    // function Seats() {
+
+        // function filterSeats(seats) {
+
+        //     const newSeats = seats.filter(function(ele , pos){
+        //     return seats.indexOf(ele) == pos;
+        //     }) 
+
+        //     console.log("array filtrada ",newSeats);
+        // }
+        
+    
     //     function sendSeats(event) {
     //         event.preventDefault()
             
@@ -134,6 +149,29 @@ export default function Session() {
     //     }
     // }
     
+    const Header = styled.header`
+    font-family: 'Roboto', sans-serif;  
+    width: 100%;
+    height: 67px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #C3CFD9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+
+    h1 {
+    font-size: 34px;
+    color: #E8833A;
+    }
+
+    a:-webkit-any-link {
+    text-decoration: none;
+}
+`
 
 const Title = styled.div`
     height: 10vh;
@@ -144,15 +182,16 @@ const Title = styled.div`
 `
 
 const Main = styled.main`
+    font-family: 'Roboto', sans-serif;  
     width: 100%;
-    height: 79vh;
-    margin-top: 8vh;
-    margin-bottom: 13vh;
+    height: 100%;
+    margin: 67px 0 117px 0;
 
     h2 {
         font-size: 24px;
-    }
+        color: #293845;
 
+}
 `
 
 const Form = styled.form`
@@ -267,15 +306,16 @@ const Seat = styled.div`
 `
 
 const Foot = styled.footer`
+    font-family: 'Roboto', sans-serif;
     width: 100%;
-    height: 13vh;
+    height: 117px;
     display: flex;
     align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     background-color: #DFE6ED;
     border-top: 2px solid #9EADBA;
+    position: fixed;
+    bottom: 0;
+    left: 0;  
     
 
     div:first-child {
