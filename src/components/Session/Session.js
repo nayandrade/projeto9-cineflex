@@ -20,18 +20,21 @@ function Footer ( {url, title, weekday, date } ) {
     )
 }
 
-function Seats ( {name, isAvailable, id, selected, setSelected} ) {
+function Seats ( {name, isAvailable, id, selected, setSelected, selectedSeat, setSelectedSeat} ) {
     const [chosen, setChosen] = useState('')
     
 
     function Chose() {
         if(isAvailable && !chosen) {
             setChosen(!chosen)
-            setSelected([...selected, name])
+            setSelected([...selected, id])
+            setSelectedSeat([...selectedSeat, name])
             console.log(selected)
-            console.log(name)
+            console.log(selectedSeat)
+            console.log(id)
         } else if (chosen){         
-            setSelected(selected.filter((e) => e !== name ))
+            setSelected(selected.filter((e) => e !== id ))
+            setSelectedSeat(selectedSeat.filter((e) => e !== name ))
             setChosen(!chosen)
         } 
     }    
@@ -40,11 +43,10 @@ function Seats ( {name, isAvailable, id, selected, setSelected} ) {
         <Seat isAvailable={isAvailable} chosen={chosen} onClick={Chose}>
             {name}
         </Seat>
-    )
-}
+    )}
 
 
-export default function Session( {movie, setMovie, day, setDay, info, setInfo, selected, setSelected, seats, setSeats, name, setName, cpf, setCpf,} ) {
+export default function Session( {movie, setMovie, day, setDay, info, setInfo, selected, setSelected, selectedSeat, setSelectedSeat, seats, setSeats, name, setName, cpf, setCpf} ) {
     
     const { idsessao } = useParams();
       
@@ -60,6 +62,27 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
 
         });
     }, []);
+
+    function BookSeats(event) {
+        event.preventDefault();
+        const body = {
+            ids: selected,
+            name: name,
+            cpf: cpf
+        };
+        console.log(body)
+
+        const promise = axios.post(
+            "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", body);
+
+            promise.then((res) => {
+                console.log(res.data);
+              });
+              
+            promise.catch('deu ruim')
+
+
+    }
 
     return (
         <>
@@ -84,6 +107,8 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
                     key={index}
                     selected={selected}
                     setSelected={setSelected}
+                    selectedSeat={selectedSeat}
+                    setSelectedSeat={setSelectedSeat}
                     />   
                                         
                 )) 
@@ -95,12 +120,12 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
                 <div><Seat isAvailable={true}></Seat><span>Disponível</span></div>
                 <div><Seat isAvailable={false}></Seat><span>Indisponível</span></div>   
             </SeatLabel>
-            <Form>
+            <Form onSubmit={BookSeats}>
                 <label htmlFor="nome">Nome do comprador:</label>
                 <input type="text" id="nome" value={name} placeholder="Digite seu nome..." required onChange={(e) => setName(e.target.value)}/>
                 <label htmlFor="number">CPF do comprador:</label>
                 <input type="number" id="number" value={cpf} placeholder="Digite seu CPF..." pattern="(/^(\d{3}\.){2}\d{3}\-\d{2}$/)" required onChange={(e) => setCpf(e.target.value)}/>
-                <div><button type="submit"><Link to={`/sucesso`}>Reservar Assento(s)</Link></button></div>
+                <div><button type="submit">Reservar Assento(s)</button></div>
             </Form>
             
         </Main>

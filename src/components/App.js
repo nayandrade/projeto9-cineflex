@@ -14,6 +14,7 @@ export default function App() {
     const [cpf, setCpf] = React.useState('');
     const [info, setInfo] = React.useState(null);
     const [selected, setSelected] = React.useState([]);
+    const [selectedSeat, setSelectedSeat] = React.useState([]);
     
     const [movie, setMovie] = React.useState ({})
     const [day, setDay] = React.useState ('');
@@ -33,6 +34,8 @@ export default function App() {
                 setInfo={setInfo}
                 selected={selected}
                 setSelected={setSelected}
+                selectedSeat={selectedSeat}
+                setSelectedSeat={setSelectedSeat}
                 seats={seats} 
                 setSeats={setSeats}
                 name={name}
@@ -43,7 +46,8 @@ export default function App() {
                 movie={movie}
                 day={day}
                 info={info}
-                selected={selected} 
+                selected={selected}
+                selectedSeat={selectedSeat} 
                 seats={seats} 
                 setSeats={setSeats}
                 name={name}
