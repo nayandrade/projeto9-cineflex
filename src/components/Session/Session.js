@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from 'styled-components';
 
@@ -29,9 +29,6 @@ function Seats ( {name, isAvailable, id, selected, setSelected, selectedSeat, se
             setChosen(!chosen)
             setSelected([...selected, id])
             setSelectedSeat([...selectedSeat, name])
-            console.log(selected)
-            console.log(selectedSeat)
-            console.log(id)
         } else if (chosen){         
             setSelected(selected.filter((e) => e !== id ))
             setSelectedSeat(selectedSeat.filter((e) => e !== name ))
@@ -46,7 +43,7 @@ function Seats ( {name, isAvailable, id, selected, setSelected, selectedSeat, se
     )}
 
 
-export default function Session( {movie, setMovie, day, setDay, info, setInfo, selected, setSelected, selectedSeat, setSelectedSeat, seats, setSeats, name, setName, cpf, setCpf} ) {
+export default function Session( {setMovie, setDay, info, setInfo, selected, setSelected, selectedSeat, setSelectedSeat, setSeats, name, setName, cpf, setCpf} ) {
     const navigate = useNavigate();
     const { idsessao } = useParams();
       
@@ -57,9 +54,6 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
             setInfo(response.data)
             setDay(response.data.day)
             setMovie(response.data.movie)
-            console.log(response.data)
-            console.log(response.data.seats)
-
         });
     }, []);
 
@@ -71,7 +65,6 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
             name: name,
             cpf: cpf
         };
-        console.log(body)
 
         const promise = axios.post(
             "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", body);
@@ -81,18 +74,14 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
                 
               });
             promise.then(navigate("/sucesso", { replace: true }));  
-            promise.catch('deu ruim')
-
-
+            
     }
 
     return (
         <>
         
-        <Header>
-            <Link to={`/`}>
-                <h1>CINEFLEX</h1>
-            </Link>
+        <Header>           
+            <h1>CINEFLEX</h1>
         </Header>
         
         <Main>
@@ -111,8 +100,7 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
                     setSelected={setSelected}
                     selectedSeat={selectedSeat}
                     setSelectedSeat={setSelectedSeat}
-                    />   
-                                        
+                    />                                          
                 )) 
             }
 
@@ -145,26 +133,6 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
     )
 }
 
-    
-    // function Seats() {
-
-        // function filterSeats(seats) {
-
-        //     const newSeats = seats.filter(function(ele , pos){
-        //     return seats.indexOf(ele) == pos;
-        //     }) 
-
-        //     console.log("array filtrada ",newSeats);
-        // }
-        
-    
-    //     function sendSeats(event) {
-    //         event.preventDefault()
-            
-    //         const requisicao = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many")
-    //     }
-    // }
-    
     const Header = styled.header`
     font-family: 'Roboto', sans-serif;  
     width: 100%;

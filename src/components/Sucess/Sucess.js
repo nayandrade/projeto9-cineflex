@@ -1,17 +1,8 @@
-import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
-
-
-export default function Sucess( {movie, setMovie, day, setDay, info, setInfo, selected, setSelected, selectedSeat, setSelectedSeat, seats, setSeats, name, setName, cpf, setCpf} ) {
+export default function Sucess( {movie, setMovie, day, setDay, info, setInfo, setSelected, selectedSeat, setSelectedSeat, setSeats, name, setName, cpf, setCpf} ) {
     const navigate = useNavigate();
-    
-    console.log(day)
-    console.log(movie)
-    console.log(info)
-    console.log(selected)
 
     function Return () {
         setSeats([]);
@@ -22,10 +13,8 @@ export default function Sucess( {movie, setMovie, day, setDay, info, setInfo, se
         setSelectedSeat([]);
         setMovie({});
         setDay('');
-        console.log(seats, name, cpf, info, selected, selectedSeat, movie, day);
         navigate("/", { replace: true })
     }
-
 
     return (
         <>
@@ -135,13 +124,11 @@ const Section = styled.section`
         font-size: 24px;
         font-weight: 700;
         margin-bottom: 20px;
-
     }
 
     span {
         font-size: 22px;
-        font-weight: 400px    
-        
+        font-weight: 400px;     
     }
 
     div {
@@ -152,7 +139,6 @@ const Section = styled.section`
     a:-webkit-any-link {
         text-decoration: none;
     }
-
 `
 
 const Button = styled.button`

@@ -3,10 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from 'styled-components';
 
-
-
-
-function Showtime ( {showtime, id, index} ) {
+function Showtime ( {showtime, id} ) {
     return (
         <Link to={`/sessao/${id}`}>
             <Button>
@@ -16,8 +13,8 @@ function Showtime ( {showtime, id, index} ) {
     )
 }
 
-function MovieSection ( {date, id, showtimes, weekday, url} ) {
-    console.log(showtimes)
+function MovieSection ( {date, showtimes, weekday} ) {
+    
 
     return (
         <Section>
@@ -30,8 +27,7 @@ function MovieSection ( {date, id, showtimes, weekday, url} ) {
                         <Showtime
                         key={index} 
                         showtime={showtime.name}
-                        id={showtime.id}
-                        index={index}
+                        id={showtime.id}                        
                         />                                           
                     ))
                 }               
@@ -58,21 +54,17 @@ function Footer ( {url, title} ) {
 }
 
 
-export default function Movie ( { url }) {
+export default function Movie () {
     const [sections, setSections] = useState([]);
     const [info, setInfo] = useState([])
     const { idfilme } = useParams();
-    console.log(info)
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idfilme}/showtimes`);
 
         promise.then((response) => {
             setSections(response.data.days);
-            setInfo(response.data)
-            console.log(response.data.days)
-            console.log(response.data)
-            
+            setInfo(response.data)            
         });
     }, []);
 
@@ -84,7 +76,7 @@ export default function Movie ( { url }) {
                 <Link to={`/`}>
                     <h1>CINEFLEX</h1>
                 </Link>
-            </Header>
+            </Header>   
             
             <Main>
                 <Title>
@@ -94,11 +86,9 @@ export default function Movie ( { url }) {
                     sections.map((section, index) => (
                         <MovieSection
                         key={index}
-                        date={section.date}
-                        id={section.id}
+                        date={section.date}                        
                         showtimes={section.showtimes}
-                        weekday={section.weekday}
-                        url= {url} 
+                        weekday={section.weekday}                        
                         /> 
                     ))
                 }

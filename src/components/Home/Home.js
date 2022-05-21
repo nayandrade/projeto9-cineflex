@@ -4,7 +4,7 @@ import axios from "axios";
 import styled from 'styled-components';
 
 
-function MovieBanner ( {id, url, title } ) {
+function MovieBanner ( {id, url} ) {
     return (
         <Link to={`/filme/${id}` }>
             <Movie>
@@ -24,7 +24,6 @@ export default function Home() {
   
       requisicao.then((response) => {
         setMovies(response.data)
-        console.log(response.data);
       });
     }, []);
 
@@ -41,10 +40,9 @@ export default function Home() {
                     {
                         movies.map((movie, index) => (
                             <MovieBanner
-                            key={index}
-                            id={movie.id} 
-                            url={movie.posterURL}
-                            title={movie.title}
+                                key={index}
+                                id={movie.id} 
+                                url={movie.posterURL}
                             />                        
                         ))
                     }                
@@ -52,8 +50,7 @@ export default function Home() {
             </Main>
         
         </Body>        
-    )
-    
+    )    
 }
 
 const Body = styled.div`
