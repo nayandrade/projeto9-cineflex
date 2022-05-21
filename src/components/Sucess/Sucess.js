@@ -43,8 +43,8 @@ export default function Sucess( {movie, setMovie, day, setDay, info, setInfo, se
             </Section>
             <Section>
                 <h3>Comprador</h3>
-                <span>{name}</span>
-                <span>{cpf}</span>                
+                <span>Nome: {name}</span>
+                <span>CPF: {cpf}</span>                
             </Section>
             <div><Button onClick={Return}>Voltar pra home</Button>  </div>        
         </Main>  

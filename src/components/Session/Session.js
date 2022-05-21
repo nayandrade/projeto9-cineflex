@@ -33,7 +33,9 @@ function Seats ( {name, isAvailable, id, selected, setSelected, selectedSeat, se
             setSelected(selected.filter((e) => e !== id ))
             setSelectedSeat(selectedSeat.filter((e) => e !== name ))
             setChosen(!chosen)
-        } 
+        } else if(!isAvailable) {
+            alert('Esse assento não está disponível')
+        }
     }    
 
     return (
