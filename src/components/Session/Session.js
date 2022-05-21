@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from 'styled-components';
 
@@ -47,7 +47,7 @@ function Seats ( {name, isAvailable, id, selected, setSelected, selectedSeat, se
 
 
 export default function Session( {movie, setMovie, day, setDay, info, setInfo, selected, setSelected, selectedSeat, setSelectedSeat, seats, setSeats, name, setName, cpf, setCpf} ) {
-    
+    const navigate = useNavigate();
     const { idsessao } = useParams();
       
     useEffect(() =>{
@@ -64,6 +64,7 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
     }, []);
 
     function BookSeats(event) {
+        
         event.preventDefault();
         const body = {
             ids: selected,
@@ -77,8 +78,9 @@ export default function Session( {movie, setMovie, day, setDay, info, setInfo, s
 
             promise.then((res) => {
                 console.log(res.data);
+                
               });
-              
+            promise.then(navigate("/sucesso", { replace: true }));  
             promise.catch('deu ruim')
 
 

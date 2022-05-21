@@ -1,13 +1,32 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from 'styled-components';
 
-export default function Sucess( {movie, day, info, selected, selectedSeat, seats, setSeats, name, setName, cpf, setCpf} ) {
+
+
+export default function Sucess( {movie, setMovie, day, setDay, info, setInfo, selected, setSelected, selectedSeat, setSelectedSeat, seats, setSeats, name, setName, cpf, setCpf} ) {
+    const navigate = useNavigate();
+    
     console.log(day)
     console.log(movie)
     console.log(info)
     console.log(selected)
+
+    function Return () {
+        setSeats([]);
+        setName('');
+        setCpf('');
+        setInfo(null);
+        setSelected([]);
+        setSelectedSeat([]);
+        setMovie({});
+        setDay('');
+        console.log(seats, name, cpf, info, selected, selectedSeat, movie, day);
+        navigate("/", { replace: true })
+    }
+
+
     return (
         <>
         <Header>
@@ -38,7 +57,7 @@ export default function Sucess( {movie, day, info, selected, selectedSeat, seats
                 <span>{name}</span>
                 <span>{cpf}</span>                
             </Section>
-            <div><Button><Link to={`/`}>Voltar pra home</Link></Button>  </div>        
+            <div><Button onClick={Return}>Voltar pra home</Button>  </div>        
         </Main>  
         </>  
     )

@@ -44,10 +44,15 @@ export default function App() {
                 setCpf={setCpf}/> } />
                 <Route path="/sucesso" element={<Sucess
                 movie={movie}
+                setMovie={setMovie}
                 day={day}
+                setDay={setDay}
                 info={info}
+                setInfo={setInfo}
                 selected={selected}
-                selectedSeat={selectedSeat} 
+                setSelected={setSelected}
+                selectedSeat={selectedSeat}
+                setSelectedSeat={setSelectedSeat} 
                 seats={seats} 
                 setSeats={setSeats}
                 name={name}
