@@ -115,8 +115,8 @@ export default function Session( {setMovie, setDay, info, setInfo, selected, set
             <Form onSubmit={BookSeats}>
                 <label htmlFor="nome">Nome do comprador:</label>
                 <input type="text" id="nome" value={name} placeholder="Digite seu nome..." required onChange={(e) => setName(e.target.value)}/>
-                <label htmlFor="number">CPF do comprador:</label>
-                <input type="number" id="number" value={cpf} placeholder="Digite seu CPF..." pattern="(/^(\d{3}\.){2}\d{3}\-\d{2}$/)" required onChange={(e) => setCpf(e.target.value)}/>
+                <label htmlFor="cpf">CPF do comprador:</label>
+                <input type="text" name="cpf" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" value={cpf} placeholder="Digite seu CPF..." required onChange={(e) => setCpf(e.target.value)}/>
                 <div><button type="submit">Reservar Assento(s)</button></div>
             </Form>
             
